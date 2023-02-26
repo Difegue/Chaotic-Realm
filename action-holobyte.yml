@@ -1,0 +1,69 @@
+name: Generate Holobyte
+description: Automatically sends a request for a Holobyte when a pull request is merged, and posts a comment with a redeem link
+author: Difegue
+branding:
+  icon: award
+  color: green
+inputs:
+  evolving-sticker-id: # id of badge
+    description: "ID of badge you want to emit a Holobyte for"
+    required: true
+    default: ""
+  holopin-api-key:
+    description: "API key for Holopin"
+    required: true
+    default: ""
+  github-id:
+    description: "Github ID of user to send Holobyte to"
+    required: true
+    default: ""
+  holobyte-description:
+    description: "Description of Holobyte"
+    required: false
+    default: "being cool"
+outputs:
+  holobyte-id: 
+    description: "ID of generated Holobyte"
+    value: ${{ steps.holobyte-id.outputs.id }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set random icon for Holobyte
+      id: icon
+      shell: bash
+      run: |
+
+        # Random number between 1 and 5
+        number=$(( ( RANDOM % 5 ) + 1 ))
+
+        if [ $number == 1 ]; then
+          echo "icon=cherry" >> $GITHUB_OUTPUT
+        elif [ $number == 2 ]; then
+          echo "icon=lemon" >> $GITHUB_OUTPUT
+        elif [ $number == 3 ]; then
+          echo "icon=coffee" >> $GITHUB_OUTPUT
+        elif [ $number == 4 ]; then
+          echo "icon=starfruit" >> $GITHUB_OUTPUT
+        elif [ $number == 5 ]; then
+          echo "icon=avocado" >> $GITHUB_OUTPUT
+        fi
+    - name: Create Holobyte
+      id: request
+      env:
+        BADGE_ID: ${{ inputs.evolving-sticker-id }}
+        HOLOPIN_API: ${{ inputs.holopin-api-key }}
+        GITHUB_ID: ${{ inputs.github-id }}
+        DESCRIPTION: ${{ inputs.holobyte-description }}
+        ICON: ${{steps.icon.outputs.icon}}
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://www.holopin.io/api/holobyte?id=${{ env.BADGE_ID }}&apiKey=${{ env.HOLOPIN_API }}'
+        method: 'POST'
+        contentType: 'application/x-www-form-urlencoded'
+        data: '{"icon":"${{ env.ICON }}", "toGithubId":"${{ env.GITHUB_ID }}", "description":"${{ env.DESCRIPTION }}"}'
+    - name: Echo Holobyte ID and set as output
+      id: holobyte-id
+      shell: bash
+      run: | 
+        echo ${{ fromJson(steps.request.outputs.response).id }}
+        echo "id=${{ fromJson(steps.request.outputs.response).id }}" >> $GITHUB_OUTPUT
