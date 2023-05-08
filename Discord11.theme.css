@@ -1,0 +1,59 @@
+/**
+ * @name Discord 11
+ * @description Based on Windows 11's UI
+ * @author zuzumi#8097
+ * @authorId 403725623161257984
+ * @version 2.4.0
+ * @invite PsNtzGeHuW
+ * @donate https://www.paypal.me/hurtyoutube
+ * @website https://github.com/zuzumi-f
+ * @source https://github.com/zuzumi-f/Discord-11/blob/main/base.css
+*/
+
+/*------------------------------------------------------------
+      you can't disable this, is the full theme dummy
+------------------------------------------------------------*/
+@import url(https://zuzumi-f.github.io/Discord-11/base.css);
+
+/*-------------------------------------------------------------------------------------------------
+                                        Windows 11 emojis
+--------------------------------------------------------------------------------------------------*/
+@import url(https://mwittrien.github.io/BetterDiscordAddons/Themes/EmojiReplace/base/Microsoft.css);
+
+/*--------------------------------------------------------------
+Message bubble styles [If you don't want any place a /* in all]
+----------------------------------------------------------------*/
+/* Message Bubble in Left Side */
+/*@import url(https://zuzumi-f.github.io/Discord-11/release/messagebubbleleft.css);
+/* Default Message Bubble */
+/* @import url(https://zuzumi-f.github.io/Discord-11/release/messagebubble11.css); */
+/* New Message Bubble */
+/* @import url(https://zuzumi-f.github.io/Discord-11/release/messagebubblenew.css); */
+
+/*--------------------------------------------------------------
+                           Glass effect
+         [To see your desk put "none" in --wallpaper-is:
+                               and
+               enable Transparency in BD Settings]
+---------------------------------------------------------------*/
+/*--Yes you can enable/disable this--*/
+/* @import url(https://zuzumi-f.github.io/Discord-11/release/glasseffect.css); */
+
+/*--------------------------------------------------------------
+                           Settings
+---------------------------------------------------------------*/
+:root {
+    --wallpaper-is: url(https://zuzumi-f.github.io/Discord-11/release/img19.jpg); /* Wallpaper - Replace de url only */
+    --blur-size: 24px; /* Amount of blur in pixels [24px is default] */
+    --opacity-thing: 0.6; /* Value from 0 to 1 [0.6 is default] */
+    --server-size: 48px; /* The size of the server icons [48px is default] */
+      
+    /* HSL(Hue, Saturation, Lightness). This values will change the accent color (That blue color in most buttons) */
+    --H: 199; /* Value only number [199 is default] */
+    --S: 100%; /* Value in % [100% is default] */
+    --L: 69%; /* Value in % [69% is default] */
+}
+
+/*----------------------------------------------------
+                anything else down here
+------------------------------------------------------*/
