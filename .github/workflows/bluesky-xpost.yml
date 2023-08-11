@@ -15,12 +15,12 @@ jobs:
       - name: Save file name from media_link as a variable
         id: media
         run: |
-          echo "$(basename ${{ github.event.client_payload.media_link }})" >> $GITHUB_OUTPUT
+          echo "filename=$(basename ${{ github.event.client_payload.media_link }})" >> "$GITHUB_OUTPUT"
       - name: Post to the bad jack crypto website
         uses: myConsciousness/bluesky-post@v3
         with:
           text: ${{ github.event.client_payload.text }}
-          media: ${{ steps.media.outputs.output1 }}
+          media: ${{ steps.media.outputs.filename }}
           media-alt: ${{ github.event.client_payload.media_alt }}
           identifier: ${{ secrets.BLUESKY_IDENTIFIER }}
           password: ${{ secrets.BLUESKY_PASSWORD }}
