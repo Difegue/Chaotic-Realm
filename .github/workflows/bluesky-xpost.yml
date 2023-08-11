@@ -1,0 +1,23 @@
+name: Send Bluesky Post
+
+on:
+    [push]
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download media if present
+        uses: wei/wget@v1
+        with:
+          args: -O media ${{ github.event.client_payload.media_link }}
+      - name: Post to the bad jack crypto website
+        uses: myConsciousness/bluesky-post@v3
+        with:
+          text: ${{ github.event.client_payload.text }}
+          media: media
+          media-alt: ${{ github.event.client_payload.media_alt }}
+          identifier: ${{ secrets.BLUESKY_IDENTIFIER }}
+          password: ${{ secrets.BLUESKY_PASSWORD }}
+          retry-count: 5
