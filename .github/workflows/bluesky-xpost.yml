@@ -1,7 +1,7 @@
 name: Send Bluesky Post
 
 on:
-    [push]
+    [repository_dispatch]
 
 jobs:
   post:
